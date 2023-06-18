@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Cotações</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container mt-5">
+        {% if error_message %}
+        <div class="alert alert-danger" role="alert">
+            {{ error_message }}
+        </div>
+        {% endif %}
+
+        <h1 class="text-center">Cotação</h1>
+        <div class="container col-xl-10 col-xxl-8 px-4 py-5">
+            <div class="card">
+                <div class="card-header">
+                    Instruções
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        <ul>
+                            <li>Selecione a data inicial, final e a moeda.</li>
+                            <li>Depois clique em atualizar gráfico para ver a cotação.</li>
+                            <li>O período informado não deve ser superior a 5 dias úteis</li>
+                        </ul>
+                    
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <div id="calc_ops" class="container col-xl-10 col-xxl-8 px-4 py-5">
+            <div class="row align-items-center g-lg-5 py-5">
+                <form method="get" action="{% url 'quotes:index' %}" class="row align-items-end">
+                    <div class="col">
+                        <label for="codigo_acao" class="form-label">Data de início:</label>
+                        <input id="start_date" type="date" class="form-control" name="start_date" value="{{ start_date }}" placeholder="Data de início:">    
+                    </div>
+                    <div class="col">
+                        <label for="codigo_acao" class="form-label">Data de fim:</label>
+                        <input id="end_date" type="date" class="form-control" name="end_date" value="{{ end_date }}" placeholder="Data de fim:">
+                    </div>
+                    <div class="col">
+                        <label class="form-label" for="autoSizingSelect">Moeda:</label>
+                        <select name="currency" class="form-select" id="autoSizingSelect">
+                            <option value="BRL" {% if "BRL" in selected_currency %}selected{% endif %}>Real</option>
+                            <option value="EUR" {% if "EUR" in selected_currency %}selected{% endif %}>Euro</option>
+                            <option value="JPY" {% if "JPY" in selected_currency %}selected{% endif %}>Iene</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <input id="show_quote_btn" type="submit" class="w-100 btn btn-lg btn-primary" value="Atualizar gráfico">
+                    </div>
+                </form>
+
+                <hr class="border border-primary border-1 opacity-75">
+
+                <div class="row">           
+                    <div class="col-12">
+                        <div id="exchange-rates-chart"></div>
+                    </div>    
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <script src="https://code.highcharts.com/stock/highstock.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var quotes = {{ quotes|safe }};
+            var symbol = '{{ symbol }}';
+            var data = quotes.map(function (item) {
+                return [new Date(item.date).getTime(), item.price];
+            });
+    
+            Highcharts.stockChart('exchange-rates-chart', {
+                rangeSelector: {
+                    selected: 1
+                },
+    
+                title: {
+                    text: 'USD Vs ' + symbol
+                },
+    
+                series: [{
+                    name: symbol,
+                    data: data,
+                    tooltip: {
+                        valueDecimals: 2
+                    }
+                }]
+            });
+        });
+    </script>
+</body>
+
+</html>
