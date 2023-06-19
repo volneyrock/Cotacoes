@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "testebrmed"
+name = "brmed"
 version = "0.1.0"
 description = ""
 authors = ["Volney Casas <volneyrock@gmail.com>"]
@@ -10,6 +10,10 @@ python = "^3.11"
 django = "^4.2.2"
 requests = "^2.31.0"
 djangorestframework = "^3.14.0"
+celery = "^5.3.1"
+django-celery-beat = "^2.5.0"
+django-celery-results = "^2.5.1"
+redis = "^4.5.5"
 
 
 [build-system]

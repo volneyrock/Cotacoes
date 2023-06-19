@@ -1,18 +1,15 @@
 from datetime import datetime, timedelta
 
+from celery import shared_task
+
 from quotes.models import Currency, Quote
 from quotes.vat_comply import VatComplyService
 
 
-def parse_date(date):
-    if type(date) is str:
-        return datetime.strptime(date, "%Y-%m-%d").date()
-    return date
-
-
-def fetch_and_save_exchange_rates(start_date, end_date):
-    start_date = parse_date(start_date)
-    end_date = parse_date(end_date)
+@shared_task
+def fetch_and_save_exchange_rates():
+    end_date = datetime.now().date()
+    start_date = end_date - timedelta(days=5)
     service = VatComplyService()
     date = start_date
 
