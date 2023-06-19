@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  redis:
+    image: redis:alpine
+    restart: always
+    ports:
+      - "6379:6379"
+  app:
+    build: .
+    ports:
+      - "80:8000"
+    volumes:
+      - .:/app
+  celery:
+    build: .
+    command: ["celery", "-A", "BRMed", "worker", "--loglevel=info"]
+    volumes:
+      - .:/app
+    depends_on:
+      - redis
+  celerybeat:
+    build: .
+    command: ["celery", "-A", "BRMed", "beat", "--loglevel=info"]
+    volumes:
+      - .:/app
+    depends_on:
+      - redis
+
+  
