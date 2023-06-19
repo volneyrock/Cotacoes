@@ -1,14 +1,32 @@
-from django.core.exceptions import ObjectDoesNotExist
-from rest_framework.exceptions import ValidationError
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
 
 from api.serializers import QuoteFilterSerializer, QuoteSerializer
+from api.swagger_params import (
+    end_date_param,
+    limit_param,
+    offset_param,
+    start_date_param,
+    symbol_param,
+)
 from quotes.models import Quote
 
 
 class QuoteListAPIView(ListAPIView):
     serializer_class = QuoteSerializer
+
+    @swagger_auto_schema(
+        manual_parameters=[
+            symbol_param,
+            start_date_param,
+            end_date_param,
+            limit_param,
+            offset_param,
+        ]
+    )
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
 
     def get_queryset(self):
         filters_serializer = QuoteFilterSerializer(data=self.request.query_params)
