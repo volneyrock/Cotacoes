@@ -32,3 +32,11 @@ Agora o projeto deve estar rodando em `localhost:80`.
 
 A documentação da API está disponível em `localhost:80/swagger/` ou se preferir `localhost:80/redoc/`  quando o projeto está sendo executado. A documentação usa o Swagger e inclui detalhes de todos os endpoints disponíveis, bem como os parâmetros que podem ser usados.
 
+## Versão online
+Fiz deploy da aplicação em uma instencia EC2 da AWS, para acessar a aplicação online basta acessar os links abaixo:
+
+Página web: [http://34.207.78.174/](http://34.207.78.174/)
+
+Documentação da API estilo swagger: [http://34.207.78.174/swagger](http://34.207.78.174/swagger)
+
+Documentação da API estilo redoc: [http://34.207.78.174/redoc](http://34.207.78.174/redoc)
