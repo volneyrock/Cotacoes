@@ -9,6 +9,7 @@ readme = "README.md"
 python = "^3.11"
 django = "^4.2.2"
 requests = "^2.31.0"
+djangorestframework = "^3.14.0"
 
 
 [build-system]

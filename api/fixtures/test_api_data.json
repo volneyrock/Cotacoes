@@ -1,0 +1,86 @@
+[
+    {
+        "model": "quotes.currency",
+        "pk": 1,
+        "fields": {
+            "symbol": "EUR",
+            "created_at": "2021-06-18T00:00:00Z",
+            "updated_at": "2021-06-18T00:00:00Z"
+        }
+    },
+    {
+        "model": "quotes.currency",
+        "pk": 2,
+        "fields": {
+            "symbol": "JPY",
+            "created_at": "2021-06-02T00:00:00Z",
+            "updated_at": "2021-06-02T00:00:00Z"
+        }
+    },
+    {
+        "model": "quotes.quote",
+        "pk": 1,
+        "fields": {
+            "target_currency": 1,
+            "price": "0.92",
+            "date": "2023-06-05",
+            "created_at": "2021-06-18T00:00:00Z",
+            "updated_at": "2021-06-18T00:00:00Z"
+        }
+    },
+    {
+        "model": "quotes.quote",
+        "pk": 2,
+        "fields": {
+            "target_currency": 1,
+            "price": "0.93",
+            "date": "2023-06-06",
+            "created_at": "2021-06-18T00:00:00Z",
+            "updated_at": "2021-06-18T00:00:00Z"
+        }
+    },
+    {
+        "model": "quotes.quote",
+        "pk": 3,
+        "fields": {
+            "target_currency": 1,
+            "price": "0.94",
+            "date": "2023-06-07",
+            "created_at": "2021-06-18T00:00:00Z",
+            "updated_at": "2021-06-18T00:00:00Z"
+        }
+    },
+    {
+        "model": "quotes.quote",
+        "pk": 4,
+        "fields": {
+            "target_currency": 1,
+            "price": "0.92",
+            "date": "2023-06-08",
+            "created_at": "2021-06-18T00:00:00Z",
+            "updated_at": "2021-06-18T00:00:00Z"
+        }
+    },
+    {
+        "model": "quotes.quote",
+        "pk": 5,
+        "fields": {
+            "target_currency": 1,
+            "price": "0.98",
+            "date": "2023-06-09",
+            "created_at": "2021-06-18T00:00:00Z",
+            "updated_at": "2021-06-18T00:00:00Z"
+        }
+    },
+    {
+        "model": "quotes.quote",
+        "pk": 6,
+        "fields": {
+            "target_currency": 2,
+            "price": "141.28",
+            "date": "2023-06-02",
+            "created_at": "2021-06-02T00:00:00Z",
+            "updated_at": "2021-06-02T00:00:00Z"
+        }
+    }
+]
