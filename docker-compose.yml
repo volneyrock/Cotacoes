@@ -12,5 +12,19 @@ services:
       - "80:8000"
     volumes:
       - .:/app
+  celery:
+    build: .
+    command: ["poetry", "run", "celery", "-A", "BRMed", "worker", "--loglevel=info"]
+    volumes:
+      - .:/app
+    depends_on:
+      - redis
+  celerybeat:
+    build: .
+    command: ["poetry", "run", "celery", "-A", "BRMed", "beat", "--loglevel=info"]
+    volumes:
+      - .:/app
+    depends_on:
+      - redis
 
   
