@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+from decimal import Decimal
 from unittest.mock import patch
 
 from django.test import TestCase
@@ -65,65 +66,41 @@ class VatComplyServiceTest(TestCase):
 
 
 class FetchAndSaveExchangeRatesTest(TestCase):
-    def setUp(self) -> None:
-        self.mock_response_data = {
-            "date": "2023-06-15",
-            "base": "USD",
-            "rates": {
-                "BRL": 4.82,
-                "EUR": 0.92,
-                "JPY": 141.28,
-            },
+    def setUp(self):
+        self.start_date = datetime.now().date() - timedelta(days=5)
+        self.end_date = datetime.now().date()
+
+    @patch("quotes.tasks.VatComplyService")
+    def test_fetch_and_save_exchange_rates_success(self, MockVatComplyService):
+        mock_service = MockVatComplyService.return_value
+        mock_service.fetch_exchange_rates.return_value = {
+            "rates": {"BRL": 1.7, "EUR": 0.92}
         }
 
-    @patch("quotes.tasks.VatComplyService")
-    def test_fetch_and_save_exchange_rates(self, mock_service):
-        mock_service().fetch_exchange_rates.return_value = self.mock_response_data
+        fetch_and_save_exchange_rates()
 
-        start_date = datetime(2023, 6, 15)
-        end_date = datetime(2023, 6, 15)
-        fetch_and_save_exchange_rates(start_date, end_date)
-
-        self.assertEqual(Currency.objects.count(), 3)
-        self.assertEqual(Quote.objects.count(), 3)
-
-        for symbol in ["BRL", "EUR", "JPY"]:
-            currency = Currency.objects.get(symbol=symbol)
-            quote = Quote.objects.get(target_currency=currency, date=start_date)
-            self.assertEqual(
-                float(quote.price),
-                mock_service().fetch_exchange_rates.return_value["rates"][symbol],
-            )
+        for date in range((self.end_date - self.start_date).days + 1):
+            date = self.start_date + timedelta(days=date)
+            brl_currency = Currency.objects.get(symbol="BRL")
+            eur_currency = Currency.objects.get(symbol="EUR")
+            brl_quote = Quote.objects.get(target_currency=brl_currency, date=date)
+            eur_quote = Quote.objects.get(target_currency=eur_currency, date=date)
+            self.assertEqual(brl_quote.price, Decimal("1.7"))
+            self.assertEqual(eur_quote.price, Decimal("0.92"))
 
     @patch("quotes.tasks.VatComplyService")
-    def test_fetch_and_save_exchange_rates_with_no_rates(self, mock_service):
-        mock_service().fetch_exchange_rates.return_value = None
+    def test_fetch_and_save_exchange_rates_failure(self, MockVatComplyService):
+        mock_service = MockVatComplyService.return_value
+        mock_service.fetch_exchange_rates.return_value = None
 
-        start_date = datetime(2023, 6, 16)
-        end_date = datetime(2023, 6, 16)
-        fetch_and_save_exchange_rates(start_date, end_date)
+        fetch_and_save_exchange_rates()
 
-        self.assertEqual(Currency.objects.count(), 0)
-        self.assertEqual(Quote.objects.count(), 0)
-
-    @patch("quotes.tasks.VatComplyService")
-    def test_fetch_and_save_exchange_rates_with_dates_as_string(self, mock_service):
-        mock_service().fetch_exchange_rates.return_value = self.mock_response_data
-
-        start_date = "2023-06-15"
-        end_date = "2023-06-15"
-        fetch_and_save_exchange_rates(start_date, end_date)
-
-        self.assertEqual(Currency.objects.count(), 3)
-        self.assertEqual(Quote.objects.count(), 3)
-
-        for symbol in ["BRL", "EUR", "JPY"]:
-            currency = Currency.objects.get(symbol=symbol)
-            quote = Quote.objects.get(target_currency=currency, date=start_date)
-            self.assertEqual(
-                float(quote.price),
-                mock_service().fetch_exchange_rates.return_value["rates"][symbol],
-            )
+        for date in range((self.end_date - self.start_date).days + 1):
+            date = self.start_date + timedelta(days=date)
+            with self.assertRaises(Currency.DoesNotExist):
+                Currency.objects.get(symbol="BRL")
+            with self.assertRaises(Quote.DoesNotExist):
+                Quote.objects.get(date=date)
 
 
 class ValidateInputTests(TestCase):

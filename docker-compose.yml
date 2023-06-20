@@ -26,5 +26,10 @@ services:
       - .:/app
     depends_on:
       - redis
+  test:
+    build: .
+    command: ["python", "manage.py", "test"]
+    volumes:
+      - .:/app
 
   
