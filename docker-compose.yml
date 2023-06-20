@@ -31,5 +31,3 @@ services:
     command: ["python", "manage.py", "test"]
     volumes:
       - .:/app
-
-  

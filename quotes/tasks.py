@@ -19,6 +19,8 @@ def fetch_and_save_exchange_rates():
             for symbol, price in rates["rates"].items():
                 currency, _ = Currency.objects.get_or_create(symbol=symbol)
                 Quote.objects.update_or_create(
-                    target_currency=currency, date=date, defaults={"price": price}
+                    target_currency=currency,
+                    date=date,
+                    defaults={"price": price},
                 )
         date += timedelta(days=1)
