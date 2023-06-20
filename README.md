@@ -40,3 +40,7 @@ Página web: [http://34.207.78.174/](http://34.207.78.174/)
 Documentação da API estilo swagger: [http://34.207.78.174/swagger](http://34.207.78.174/swagger)
 
 Documentação da API estilo redoc: [http://34.207.78.174/redoc](http://34.207.78.174/redoc)
+
+## Testes
+Voce pode rodar os testes usando o comando:
+``` docker compose run --rm test ```
