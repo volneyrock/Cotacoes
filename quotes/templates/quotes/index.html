@@ -28,18 +28,18 @@
                             <li>Depois clique em atualizar gráfico para ver a cotação.</li>
                             <li>O período informado não deve ser superior a 5 dias úteis</li>
                         </ul>
-                    
+
                     </p>
                 </div>
             </div>
         </div>
-        
+
         <div id="calc_ops" class="container col-xl-10 col-xxl-8 px-4 py-5">
             <div class="row align-items-center g-lg-5 py-5">
                 <form method="get" action="{% url 'quotes:index' %}" class="row align-items-end">
                     <div class="col">
                         <label for="codigo_acao" class="form-label">Data de início:</label>
-                        <input id="start_date" type="date" class="form-control" name="start_date" value="{{ start_date }}" placeholder="Data de início:">    
+                        <input id="start_date" type="date" class="form-control" name="start_date" value="{{ start_date }}" placeholder="Data de início:">
                     </div>
                     <div class="col">
                         <label for="codigo_acao" class="form-label">Data de fim:</label>
@@ -60,10 +60,10 @@
 
                 <hr class="border border-primary border-1 opacity-75">
 
-                <div class="row">           
+                <div class="row">
                     <div class="col-12">
                         <div id="exchange-rates-chart"></div>
-                    </div>    
+                    </div>
                 </div>
 
             </div>
@@ -79,16 +79,16 @@
             var data = quotes.map(function (item) {
                 return [new Date(item.date).getTime(), item.price];
             });
-    
+
             Highcharts.stockChart('exchange-rates-chart', {
                 rangeSelector: {
                     selected: 1
                 },
-    
+
                 title: {
                     text: 'USD Vs ' + symbol
                 },
-    
+
                 series: [{
                     name: symbol,
                     data: data,

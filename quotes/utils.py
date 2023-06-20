@@ -41,7 +41,10 @@ def fetch_currency_quotes(start_date, end_date, selected_currencie):
 
     # Convertendo os valores para o formato adequado para o gráfico
     quotes = [
-        {"date": quote["date"].strftime("%Y-%m-%d"), "price": float(quote["price"])}
+        {
+            "date": quote["date"].strftime("%Y-%m-%d"),
+            "price": float(quote["price"]),
+        }
         for quote in list(currency_quotes)
     ]
 

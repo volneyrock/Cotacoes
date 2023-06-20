@@ -29,14 +29,18 @@ class QuoteListAPIView(ListAPIView):
         return super().get(request, *args, **kwargs)
 
     def get_queryset(self):
-        filters_serializer = QuoteFilterSerializer(data=self.request.query_params)
+        filters_serializer = QuoteFilterSerializer(
+            data=self.request.query_params
+        )
         filters_serializer.is_valid(raise_exception=True)
         validated_data = filters_serializer.validated_data
 
         queryset = Quote.objects.all()
 
         if "symbol" in validated_data:
-            queryset = queryset.filter(target_currency__symbol=validated_data["symbol"])
+            queryset = queryset.filter(
+                target_currency__symbol=validated_data["symbol"]
+            )
 
         if "start_date" in validated_data:
             queryset = queryset.filter(date__gte=validated_data["start_date"])
@@ -47,7 +51,9 @@ class QuoteListAPIView(ListAPIView):
         return queryset.order_by("-date")
 
     def list(self, request, *args, **kwargs):
-        initial_response = super(QuoteListAPIView, self).list(request, *args, **kwargs)
+        initial_response = super(QuoteListAPIView, self).list(
+            request, *args, **kwargs
+        )
 
         response_data = {
             "base_currency": "USD",
