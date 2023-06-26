@@ -35,11 +35,11 @@ A documentação da API está disponível em `localhost:80/swagger/` ou se prefe
 ## Versão online
 Fiz deploy da aplicação em uma instencia EC2 da AWS, para acessar a aplicação online basta acessar os links abaixo:
 
-Página web: [http://34.207.78.174/](http://34.207.78.174/)
+Página web: [http://34.207.78.174/](http://54.227.89.163/)
 
-Documentação da API estilo swagger: [http://34.207.78.174/swagger](http://34.207.78.174/swagger)
+Documentação da API estilo swagger: [http://34.207.78.174/swagger](http://54.227.89.163/swagger)
 
-Documentação da API estilo redoc: [http://34.207.78.174/redoc](http://34.207.78.174/redoc)
+Documentação da API estilo redoc: [http://34.207.78.174/redoc](http://54.227.89.163/redoc)
 
 ## Testes
 Voce pode rodar os testes usando o comando:
