@@ -1,4 +1,4 @@
-# Desafio BRMed
+# Cotações
 
 Este projeto é uma página e também API de cotações de moedas que permite ao usuário obter cotações de moedas filtradas por símbolo de moeda, data de início e data de término.
 
@@ -32,14 +32,14 @@ Agora o projeto deve estar rodando em `localhost:80`.
 
 A documentação da API está disponível em `localhost:80/swagger/` ou se preferir `localhost:80/redoc/`  quando o projeto está sendo executado. A documentação usa o Swagger e inclui detalhes de todos os endpoints disponíveis, bem como os parâmetros que podem ser usados.
 
-## Versão online
+<!-- ## Versão online
 Fiz deploy da aplicação em uma instencia EC2 da AWS, para acessar a aplicação online basta acessar os links abaixo:
 
 Página web: [http://34.207.78.174/](http://54.227.89.163/)
 
 Documentação da API estilo swagger: [http://34.207.78.174/swagger](http://54.227.89.163/swagger)
 
-Documentação da API estilo redoc: [http://34.207.78.174/redoc](http://54.227.89.163/redoc)
+Documentação da API estilo redoc: [http://34.207.78.174/redoc](http://54.227.89.163/redoc) -->
 
 ## Testes
 Voce pode rodar os testes usando o comando:
